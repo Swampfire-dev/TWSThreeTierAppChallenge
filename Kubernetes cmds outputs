@@ -1,0 +1,45 @@
+root@ip-172-31-29-96:~# kubectl get nodes
+NAME                                           STATUS   ROLES    AGE   VERSION
+ip-192-168-61-51.us-east-2.compute.internal    Ready    <none>   42h   v1.34.9-eks-254016e
+ip-192-168-89-230.us-east-2.compute.internal   Ready    <none>   42h   v1.34.9-eks-254016e
+
+root@ip-172-31-29-96:~# kubectl get pods -A
+NAMESPACE     NAME                                           READY   STATUS    RESTARTS   AGE
+kube-system   aws-load-balancer-controller-98dcc5bf6-ck65z   1/1     Running   0          22h
+kube-system   aws-load-balancer-controller-98dcc5bf6-mz2wx   1/1     Running   0          22h
+kube-system   aws-node-79lm2                                 2/2     Running   0          42h
+kube-system   aws-node-fp5qw                                 2/2     Running   0          42h
+kube-system   coredns-655d9fd6c7-2kjbg                       1/1     Running   0          42h
+kube-system   coredns-655d9fd6c7-rqdv6                       1/1     Running   0          42h
+kube-system   kube-proxy-9gtdq                               1/1     Running   0          42h
+kube-system   kube-proxy-xp45c                               1/1     Running   0          42h
+kube-system   metrics-server-58446fb485-9gxls                1/1     Running   0          42h
+kube-system   metrics-server-58446fb485-q8rvn                1/1     Running   0          42h
+three-tier    api-6cdbffb7cf-2q86r                           1/1     Running   0          42h
+three-tier    api-6cdbffb7cf-vn6bg                           1/1     Running   0          42h
+three-tier    frontend-69b4c4f85d-jdw42                      1/1     Running   0          5h18m
+three-tier    frontend-69b4c4f85d-nppkl                      1/1     Running   0          5h18m
+three-tier    mongodb-8599b54bc4-dlslv                       1/1     Running   0          42h
+root@ip-172-31-29-96:~#
+
+root@ip-172-31-29-96:~# kubectl get svc -A
+NAMESPACE     NAME                                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       kubernetes                          ClusterIP   10.100.0.1       <none>        443/TCP                  2d2h
+kube-system   aws-load-balancer-webhook-service   ClusterIP   10.100.90.108    <none>        443/TCP                  22h
+kube-system   eks-extension-metrics-api           ClusterIP   10.100.21.131    <none>        443/TCP                  2d2h
+kube-system   kube-dns                            ClusterIP   10.100.0.10      <none>        53/UDP,53/TCP,9153/TCP   2d2h
+kube-system   metrics-server                      ClusterIP   10.100.15.114    <none>        443/TCP                  2d2h
+three-tier    api                                 ClusterIP   10.100.111.106   <none>        3500/TCP                 46h
+three-tier    frontend                            ClusterIP   10.100.175.210   <none>        3000/TCP                 29h
+three-tier    mongodb-svc                         ClusterIP   10.100.15.44     <none>        27017/TCP                47h
+
+root@ip-172-31-29-96:~# kubectl get ingress -A
+NAMESPACE    NAME     CLASS   HOSTS   ADDRESS                                                                 PORTS   AGE
+three-tier   mainlb   alb     *       k8s-threetie-mainlb-af844cea85-2056995420.us-east-2.elb.amazonaws.com   80      22h
+
+root@ip-172-31-29-96:~# kubectl get pvc -A
+NAMESPACE    NAME                 STATUS   VOLUME     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+three-tier   mongo-volume-claim   Bound    mongo-pv   1Gi        RWO                           <unset>                 47h
+root@ip-172-31-29-96:~#
+
+
